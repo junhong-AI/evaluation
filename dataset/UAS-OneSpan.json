@@ -1,0 +1,63 @@
+
+[
+  {
+    "question_type": "Deployment/Configuration",
+    "question": "What two distinct keys are used by OneSpan to double encrypt the DIGIPASS key (token seed) before it is exported into the DPX file?",
+    "ground_truth_answer": "The DIGIPASS key is first encrypted by the HSM transport key and then encrypted by the DPX key (software-level DPX transport key).",
+    "source_context": "DIGIPASS key is encrypted by the HSM transport key before it is encrypted by the DPX key. The double-encrypted DIGIPASS is exported from the DPX file. ... The customer generates the HSM-level DPX transport key and sends it to OneSpan... OneSpan generates the software-level DPX transport key, and also generates and double-encrypts the DPX file."
+  },
+  {
+    "question_type": "Integration/Development",
+    "question": "What are the three mandatory REST API calls used sequentially to complete the 2-step activation process for OneSpan Cronto (Multi-Device) tokens, whether online or offline?",
+    "ground_truth_answer": "The three API calls are: 1. `/token/VASCO/multidev/activate/step/1` (License Activation); 2. `/token/VASCO/multidev/activate/step/2` (Instance Activation verification/generation); and 3. `/token/VASCO/multidev/activate/step/3` (Post Activation/completion).",
+    "source_context": "The two-step activation is completed with 3 API calls, namely: 1. /token/VASCO/multidev/activate/step/1 - To generate Activation Message 1 (first CrontoSign) for License Activation 2. /token/VASCO/multidev/activate/step/2 - To verify the deviceCode generated after scanning Activation Message 1 (first CrontoSign); and if successful, generate Activation Message 2 (second CrontoSign) for Instance Activation 3. /token/VASCO/multidev/activate/step/3 - (Post Activation) To verify the responseCode generated after scanning Activation Message 2 (second CrontoSign); and if successful (i.e. no errors occur), the Activation is deemed successful and completed"
+  },
+  {
+    "question_type": "Deployment/Configuration",
+    "question": "Which four specific token vendor attributes related to OneSpan Multi-Device must be added to the Token Vendors attribute of the AccessMatrix server license to enable support for both non-HSM and various HSM configurations?",
+    "ground_truth_answer": "The required vendors are \"VASCO_MULTI_DEVICE, VASCO_MULTI_DEVICE_FM_ERACOM, VASCO_MULTI_DEVICE_FM_SAFENET, VASCO_MULTI_DEVICE_FM_THALES\".",
+    "source_context": "Ensure that \"UAS FEATURE\" is enabled and the following vendors (depending on requirement): \"VASCO_MULTI_DEVICE, VASCO_MULTI_DEVICE_FM_ERACOM, VASCO_MULTI_DEVICE_FM_SAFENET, VASCO_MULTI_DEVICE_FM_THALES\" are added in Token Vendors attribute of AccessMatrix server license."
+  },
+  {
+    "question_type": "Troubleshooting/Error Handling",
+    "question": "Edge Case — If incompatible OneSpan library files are copied to the AccessMatrix server, how can an administrator confirm the failure, and what is the consequence regarding the vendor handlers?",
+    "ground_truth_answer": "The administrator should check the `am.log` file for errors during server startup. If a library is incompatible, the VASCO_MULTI_DEVICE or associated FM (ERACOM, SAFENET, THALES) token vendor handlers will not be registered or initialized successfully and therefore cannot be used.",
+    "source_context": "Check am.log for any errors during server startup. If any library is not compatible, the VASCO_MULTI_DEVICE, VASCO_MULTI_DEVICE_FM_ERACOM, VASCO_MULTI_DEVICE_FM_SAFENET, or VASCO_MULTI_DEVICE_FM_THALES token vendor handlers will not be registered/initialized successfully and, hence, cannot be used."
+  },
+  {
+    "question_type": "Integration/Development",
+    "question": "Edge Case — For an online activation using the SRP protocol, which specific API must be called before Step 1 (`/token/VASCO/multidev/activate/step/1`) to generate the required server ephemeral key pair and salt?",
+    "ground_truth_answer": "The API `/token/VASCO/multidev/SRP/serverEphemeralKey/generate` must be called to generate the server ephemeral public and private keys and store them in the database.",
+    "source_context": "The client application needs to prepare a servlet/Webservice for the mobile token app to call/invoke all the following 4 APIs for activation: 1. /token/VASCO/multidev/SRP/serverEphemeralKey/generate - To generate the server ephemeral public and private keys... This API generates server ephemeral public and private key pair and store them into the database."
+  },
+  {
+    "question_type": "Deployment/Configuration",
+    "question": "Which CrontoSign feature allows for the display of all payment details in a single view and supports reasonably large transaction data, unlike standard QR codes?",
+    "ground_truth_answer": "CrontoSign uses a Colour Cronto code, supports a large colour display to present all payment details in one simple view, and carries reasonably large transaction data, up to 7049 characters.",
+    "source_context": "Colour Cronto code... The large colour display allows you to present all payment details in one simple view for user verification. It carries reasonably large transaction data... Transaction data up to 7049 characters"
+  },
+  {
+    "question_type": "Troubleshooting/Error Handling",
+    "question": "Edge Case — During online license activation using ECDH, if the response from `/token/VASCO/multidev/activate/step/1` returns `\"duplicatedDeviceUniqueId\": \"true\"`, what instruction is given to the client servlet regarding the response to the mobile app?",
+    "ground_truth_answer": "The servlet should throw an exception with a message such as \"An activated Digipass instance has been detected on the server for this device. Please contact your Administrator.\"",
+    "source_context": "if \"duplicatedDeviceUniqueId\" is \"true\", the servlet should throw an exception with a message like \"An activated Digipass instance has been detected on the server for this device. Please contact your Administrator.\""
+  },
+  {
+    "question_type": "Integration/Development",
+    "question": "Edge Case — When performing a non-login related Challenge-Response operation, such as challenging a logged-in user before approving a personal details change, which two distinct API endpoints are used sequentially for challenge generation and response verification?",
+    "ground_truth_answer": "The client application triggers `/token/generateChallenge` to obtain the server-generated challenge, and then verifies the response code using `/token/verifyResponse`.",
+    "source_context": "The client application triggers /token/generateChallenge to obtain the server-generated challenge based on the user's assigned token. ... The response code is then verified using /token/verifyResponse."
+  },
+  {
+    "question_type": "Deployment/Configuration",
+    "question": "Edge Case — For enabling push notifications in an iOS application, what specific restriction is placed on the App ID/bundle ID concerning the use of wildcards?",
+    "ground_truth_answer": "The bundle ID must be specific to the application; no wildcards are allowed for push notifications.",
+    "source_context": "Locate or create your App ID that matches your bundle ID to enable the notification service. The bundle ID must be specific to your application (no wildcards are allowed for push notifications)."
+  },
+  {
+    "question_type": "Integration/Development",
+    "question": "What is the primary REST API endpoint used for verifying a user's OTP without requiring a preceding login authentication step?",
+    "ground_truth_answer": "The primary API endpoint used is `/token/verifyOTP`.",
+    "source_context": "This section depicts the standard verifyOTP-only use case. It is used specifically to verify the user's token OTP without any login authentication. URL: /token/verifyOTP"
+  }
+]
