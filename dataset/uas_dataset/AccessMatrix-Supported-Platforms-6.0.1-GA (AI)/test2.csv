@@ -1,0 +1,433 @@
+query,ground_truth,contexts_joined
+What are the suported platforms for AcessMatrix version 6.0.1-GA (AI)?,AccessMatrix Supported Platforms - 6.0.1-GA (AI),AccessMatrix Supported Platforms - 6.0.1-GA (AI)
+Wht are the updates in Kubernets 1.31 for AccessMatrix?,Kubernetes 1.31 has been updated for AccessMatrix on Microsoft Azure and Amazon Web Services (AWS).,"1. Supported Platforms for AccessMatrix
+Supported Platformsfor AccessMatrix6.0.0-GA
+This page lists supported environments to run AccessMatrix products as of AccessMatrix 6.0.0-GA.
+Changesin Release6.0.0-GA 
+· Updated 
+o Database Engine:
+§ Updated to MySQL 8.4
+o Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE):
+§ Updated to Apache Tomcat 10.1
+§ Updated to JBoss Web Server 6
+§ Updated to Oracle Java SE 21
+§ Updated to Red Hat OpenJDK 21  
+o Container Orchestration: 
+§ Updated to Kubernetes 1.31 on Microsoft Azure
+§ Updated to Kubernetes 1.31 on Amazon Web Services (AWS) 
+o Web Browser:
+§ Updated to Google Chrome 129
+§ Updated to Microsoft Edge (Chromium) 129
+o USO Trainer and USO Client:
+§ Updated to 5.6.2.0030-GA-E28 
+o USO Client (Mobile):
+§ Updated to iOS 18
+§ Updated to Android 14
+§ Updated to HarmonyOS 4.2
+o Windows Workstation: 
+§ Updated to Windows 11 (version 24H2) 
+· Added
+o UAM as SAML SP/OIDC Relying Party:"
+"What are the supported platforms and database engines for AccessMatrix 6.0.0-GA, specifically focusing on MySQL 8.4?","For AccessMatrix 6.0.0-GA, the supported platforms include Windows Server 2022 (Version 21H2) and Red Hat Enterprise Linux Server versions 8 and 9. The database engine has been updated to MySQL 8.4. Additionally, other supported database engines include Microsoft SQL Server 2019 and 2022, and Oracle versions 19c and 23c.","<1-hop>
+
+1. Supported Platforms for AccessMatrix
+Supported Platformsfor AccessMatrix6.0.0-GA
+This page lists supported environments to run AccessMatrix products as of AccessMatrix 6.0.0-GA.
+Changesin Release6.0.0-GA 
+· Updated 
+o Database Engine:
+§ Updated to MySQL 8.4
+o Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE):
+§ Updated to Apache Tomcat 10.1
+§ Updated to JBoss Web Server 6
+§ Updated to Oracle Java SE 21
+§ Updated to Red Hat OpenJDK 21  
+o Container Orchestration: 
+§ Updated to Kubernetes 1.31 on Microsoft Azure
+§ Updated to Kubernetes 1.31 on Amazon Web Services (AWS) 
+o Web Browser:
+§ Updated to Google Chrome 129
+§ Updated to Microsoft Edge (Chromium) 129
+o USO Trainer and USO Client:
+§ Updated to 5.6.2.0030-GA-E28 
+o USO Client (Mobile):
+§ Updated to iOS 18
+§ Updated to Android 14
+§ Updated to HarmonyOS 4.2
+o Windows Workstation: 
+§ Updated to Windows 11 (version 24H2) 
+· Added
+o UAM as SAML SP/OIDC Relying Party:
+
+<2-hop>
+
+§ Added OAuth 2.1 for Authorization Code Flow with PKCE
+AccessMatrix Common Framework
+Operating System
+Database Engine
+Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE)
+Operating System Version
+Windows Server Windows Server 2022 (Version 21H2)
+Linux
+Red Hat Enterprise Linux Server 8
+Red Hat Enterprise Linux Server 9
+Database Name Version
+MySQL MySQL 8.4
+Microsoft SQL Server
+Microsoft SQL Server 2019
+Microsoft SQL Server 2022
+Oracle
+Oracle 19c
+Oracle 23c
+Web/Application
+Server Version Supported JRE/JDK Version
+Apache Tomcat
+Apache Tomcat 10.1
+(bundled version: Apache
+Tomcat 10.1.34)
+Eclipse Temurin 21 (formerly known as
+AdoptOpenJDK)
+Oracle Java SE 17
+Oracle Java SE 21
+JBoss Web Server JBoss Web Server 6 Red Hat OpenJDK 17"
+What are the supported platforms for Red Hat OpenJDK 21 in AccessMatrix 6.0.0-GA?,"In AccessMatrix 6.0.0-GA, Red Hat OpenJDK 21 is supported on platforms that include updated environments such as Apache Tomcat 10.1, JBoss Web Server 6, and container orchestration with Kubernetes 1.31 on Microsoft Azure and Amazon Web Services (AWS).","<1-hop>
+
+1. Supported Platforms for AccessMatrix
+Supported Platformsfor AccessMatrix6.0.0-GA
+This page lists supported environments to run AccessMatrix products as of AccessMatrix 6.0.0-GA.
+Changesin Release6.0.0-GA 
+· Updated 
+o Database Engine:
+§ Updated to MySQL 8.4
+o Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE):
+§ Updated to Apache Tomcat 10.1
+§ Updated to JBoss Web Server 6
+§ Updated to Oracle Java SE 21
+§ Updated to Red Hat OpenJDK 21  
+o Container Orchestration: 
+§ Updated to Kubernetes 1.31 on Microsoft Azure
+§ Updated to Kubernetes 1.31 on Amazon Web Services (AWS) 
+o Web Browser:
+§ Updated to Google Chrome 129
+§ Updated to Microsoft Edge (Chromium) 129
+o USO Trainer and USO Client:
+§ Updated to 5.6.2.0030-GA-E28 
+o USO Client (Mobile):
+§ Updated to iOS 18
+§ Updated to Android 14
+§ Updated to HarmonyOS 4.2
+o Windows Workstation: 
+§ Updated to Windows 11 (version 24H2) 
+· Added
+o UAM as SAML SP/OIDC Relying Party:"
+"In the context of AWS, how does the integration of AWS Cloud HSM support end-to-end encryption authentication (E2EEA) and what are the implications for compatibility with other HSM devices?","In the context of AWS, the integration of AWS Cloud HSM supports end-to-end encryption authentication (E2EEA) by providing a secure environment for cryptographic operations, which is crucial for maintaining data integrity and confidentiality. AWS Cloud HSM is listed under the Pseudo E2EEA category, where verification occurs inside AccessMatrix rather than within the HSM itself. This setup allows for compatibility with other HSM devices such as Azure Key Vault, Google Cloud HSM, and Thales Luna Network HSM, among others. The implication of this compatibility is that organizations can leverage AWS Cloud HSM alongside other HSM solutions to create a flexible and robust security infrastructure, ensuring that encryption keys are managed securely across different platforms.","<1-hop>
+
+Container Orchestration
+Redis Cache Server
+Web Browser for Admin Console & Common Login Page (CLP)
+* Internet Explorer is no longer supported as Microsoft has ended mainstream support on June
+15, 2022.
+CLP Windows Integrated Authentication
+HSM For Key Management
+Web/Application
+Server Version Supported JRE/JDK Version
+Red Hat OpenJDK 21
+Provider Platform
+Microsoft Azure Kubernetes 1.31
+Amazon Web Services (AWS) Kubernetes 1.31
+Cache Server Version
+Redis 6.0
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+Web Server Version
+IIS IIS 10 with Windows Server 2022 (Version 21H2)
+Key Provider HSM Device
+PKCS11 Key Provider AWS Cloud HSM
+
+<2-hop>
+
+End-to-End Encryption Authentication (E2EEA)
+E2EEA Login Modules with PIN Mailer Support
+Token Vendor HSM Device
+OATH
+Thales (formerly SafeNet) ProtectServer Network
+HSM
+Utimaco CryptoServer HSM
+OneSpan (VASCO) Token Library Version
+3.18.0 and above
+Type of E2EEA Supported HSM
+True E2EEA (verification inside HSM)
+Thales (formerly SafeNet) Payment HSM
+Thales (formerly SafeNet) ProtectServer Network HSM with i-
+Sprint E2EEA FM
+Thales payShield 10K HSM
+Utimaco SecurityServer HSM with i-Sprint E2EEA FM
+Pseudo E2EEA (verification inside
+AccessMatrix)
+AWS Cloud HSM / AWS Key Management Service
+Azure Key Vault / Azure Dedicated HSM
+Entrust nShield Connect HSM
+Google Cloud HSM
+Thales (formerly SafeNet) Luna Network HSM
+Thales (formerly SafeNet) ProtectServer Network HSM
+Thales payShield 10K HSM
+Login Module Paper PIN Mailer PDF PIN Mailer Dual Control
+PseudoE2EEA No Yes No
+SafeNet ProtectServer No Yes No"
+"Whatt are the compatibilitty issues that might arise when deploying a web application on Windows Server 2022, especially with the use of Apache Tomcat and Oracle Java SE 17?","When deploying a web application on Windows Server 2022 (Version 21H2), compatibility issues might arise due to the specific versions of software components involved. The supported web application server is Apache Tomcat 10.1, and the supported Java Runtime Environment (JRE) or Java Development Kit (JDK) versions include Eclipse Temurin 21 and Oracle Java SE 17. Ensuring that these versions are correctly configured and compatible with each other is crucial to avoid deployment issues.","<1-hop>
+
+§ Added OAuth 2.1 for Authorization Code Flow with PKCE
+AccessMatrix Common Framework
+Operating System
+Database Engine
+Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE)
+Operating System Version
+Windows Server Windows Server 2022 (Version 21H2)
+Linux
+Red Hat Enterprise Linux Server 8
+Red Hat Enterprise Linux Server 9
+Database Name Version
+MySQL MySQL 8.4
+Microsoft SQL Server
+Microsoft SQL Server 2019
+Microsoft SQL Server 2022
+Oracle
+Oracle 19c
+Oracle 23c
+Web/Application
+Server Version Supported JRE/JDK Version
+Apache Tomcat
+Apache Tomcat 10.1
+(bundled version: Apache
+Tomcat 10.1.34)
+Eclipse Temurin 21 (formerly known as
+AdoptOpenJDK)
+Oracle Java SE 17
+Oracle Java SE 21
+JBoss Web Server JBoss Web Server 6 Red Hat OpenJDK 17
+
+<2-hop>
+
+Operating System Version
+Windows Server Windows Server 2022 (Version 21H2)"
+What are the security implications of using the Utimaco CryptoServer in conjunction with the YESsafe Token+ 5.0 and AccessMatrix Universal Access Management (UAM)?,"The Utimaco CryptoServer, when used with the YESsafe Token+ 5.0 and AccessMatrix Universal Access Management (UAM), provides a robust security framework. The CryptoServer supports the YESsafe Token+ 5.0, which is compatible with various operating systems such as iOS and Android, and integrates with the AccessMatrix UAM for comprehensive access management. This combination ensures secure token activation and management, leveraging the CryptoServer's capabilities to enhance authentication and authorization processes.","<1-hop>
+
+Web Browser for Token Activation Portal (TAP)
+YESsafe Token+ 5.0
+AccessMatrixUniversalAccessManagement(UAM)
+Web Security Agent (WSA)
+Login Module Paper PIN Mailer PDF PIN Mailer Dual Control
+Thales payShield Yes Yes No
+PHEFT Yes Yes Yes
+Utimaco CryptoServer Yes Yes Yes
+Web Browser Version
+Google Chrome Google Chrome 124
+Microsoft Edge Microsoft Edge (Chromium) 124
+App Version SDK Version Operating System (OS) OS Version
+Token+ 1.2.0 5.0.0 iOS
+iOS 13.6
+iOS 14.4
+iOS 17.5
+Token+ 1.2.0 5.0.0
+Android
+Android 10
+Android 11
+Android 12
+Android 14
+Android 15
+Harmony HarmonyOS 4.0
+WSA Reverse Proxy Plugin Version
+Apache HTTP Server Apache HTTP Server 2.4 (64 bit) on Red Hat Enterprise Linux 9"
+"In the context of implementing OAuth 2.1 for Authorization Code Flow with PKCE, what are the supported operating systems, database engines, and web application servers, and how do these components ensure compliance with security protocols?","The implementation of OAuth 2.1 for Authorization Code Flow with PKCE is supported on various operating systems, database engines, and web application servers. The supported operating systems include Windows Server 2022 (Version 21H2) and Red Hat Enterprise Linux Server versions 8 and 9. The database engines compatible with this implementation are MySQL 8.4, Microsoft SQL Server 2019 and 2022, and Oracle versions 19c and 23c. For web application servers, Apache Tomcat 10.1 and JBoss Web Server 6 are supported, with Java Development Kit (JDK) versions such as Eclipse Temurin 21, Oracle Java SE 17, and Oracle Java SE 21. These components collectively ensure compliance with security protocols by providing a robust and secure environment for the OAuth 2.1 authorization process, leveraging the latest versions of software that include security patches and enhancements.","<1-hop>
+
+§ Added OAuth 2.1 for Authorization Code Flow with PKCE
+AccessMatrix Common Framework
+Operating System
+Database Engine
+Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE)
+Operating System Version
+Windows Server Windows Server 2022 (Version 21H2)
+Linux
+Red Hat Enterprise Linux Server 8
+Red Hat Enterprise Linux Server 9
+Database Name Version
+MySQL MySQL 8.4
+Microsoft SQL Server
+Microsoft SQL Server 2019
+Microsoft SQL Server 2022
+Oracle
+Oracle 19c
+Oracle 23c
+Web/Application
+Server Version Supported JRE/JDK Version
+Apache Tomcat
+Apache Tomcat 10.1
+(bundled version: Apache
+Tomcat 10.1.34)
+Eclipse Temurin 21 (formerly known as
+AdoptOpenJDK)
+Oracle Java SE 17
+Oracle Java SE 21
+JBoss Web Server JBoss Web Server 6 Red Hat OpenJDK 17"
+What are the compatibility considerations for Google Chrome 129 when deploying AccessMatrix 6.0.0-GA on Windows 11 version 24H2?,"When deploying AccessMatrix 6.0.0-GA, Google Chrome 129 is listed as a supported web browser, ensuring compatibility with the platform. Additionally, Windows 11 version 24H2 is also supported, which means that both the browser and the operating system are compatible with AccessMatrix 6.0.0-GA, facilitating a smooth deployment process.","<1-hop>
+
+USO Client
+USO Client (Mobile)
+Active Directory Password Filter (ADPF)
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+USO Client Version
+5.6.2.0030-GA-E28
+Operating System Version
+Windows Workstation
+Windows 10 (version 22H2)
+Windows 11 (version 24H2)
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+USO Client App Version Operating System (OS) OS Version
+USOClient iOS v5.7.8 iOS
+iOS 15
+iOS 18
+USOClient Android v5.7.5
+Android
+Android 12
+Android 15
+Harmony HarmonyOS 4.2
+
+<2-hop>
+
+1. Supported Platforms for AccessMatrix
+Supported Platformsfor AccessMatrix6.0.0-GA
+This page lists supported environments to run AccessMatrix products as of AccessMatrix 6.0.0-GA.
+Changesin Release6.0.0-GA 
+· Updated 
+o Database Engine:
+§ Updated to MySQL 8.4
+o Web Application Server and Java Development Kit (JDK) / Java Runtime Environment (JRE):
+§ Updated to Apache Tomcat 10.1
+§ Updated to JBoss Web Server 6
+§ Updated to Oracle Java SE 21
+§ Updated to Red Hat OpenJDK 21  
+o Container Orchestration: 
+§ Updated to Kubernetes 1.31 on Microsoft Azure
+§ Updated to Kubernetes 1.31 on Amazon Web Services (AWS) 
+o Web Browser:
+§ Updated to Google Chrome 129
+§ Updated to Microsoft Edge (Chromium) 129
+o USO Trainer and USO Client:
+§ Updated to 5.6.2.0030-GA-E28 
+o USO Client (Mobile):
+§ Updated to iOS 18
+§ Updated to Android 14
+§ Updated to HarmonyOS 4.2
+o Windows Workstation: 
+§ Updated to Windows 11 (version 24H2) 
+· Added
+o UAM as SAML SP/OIDC Relying Party:
+
+<3-hop>
+
+Web Browser for Token Activation Portal (TAP)
+YESsafe Token+ 5.0
+AccessMatrixUniversalAccessManagement(UAM)
+Web Security Agent (WSA)
+Login Module Paper PIN Mailer PDF PIN Mailer Dual Control
+Thales payShield Yes Yes No
+PHEFT Yes Yes Yes
+Utimaco CryptoServer Yes Yes Yes
+Web Browser Version
+Google Chrome Google Chrome 124
+Microsoft Edge Microsoft Edge (Chromium) 124
+App Version SDK Version Operating System (OS) OS Version
+Token+ 1.2.0 5.0.0 iOS
+iOS 13.6
+iOS 14.4
+iOS 17.5
+Token+ 1.2.0 5.0.0
+Android
+Android 10
+Android 11
+Android 12
+Android 14
+Android 15
+Harmony HarmonyOS 4.0
+WSA Reverse Proxy Plugin Version
+Apache HTTP Server Apache HTTP Server 2.4 (64 bit) on Red Hat Enterprise Linux 9"
+What are the supported web browser versions for container orchestration and how do they relate to Google Chrome?,"The supported web browser versions for container orchestration include Google Chrome version 129 and Microsoft Edge (Chromium) version 129. These versions are consistent across different contexts, such as the admin console and common login page, as well as for single sign-on portals, indicating a standardized compatibility with Google Chrome version 129.","<1-hop>
+
+USO Client
+USO Client (Mobile)
+Active Directory Password Filter (ADPF)
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+USO Client Version
+5.6.2.0030-GA-E28
+Operating System Version
+Windows Workstation
+Windows 10 (version 22H2)
+Windows 11 (version 24H2)
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+USO Client App Version Operating System (OS) OS Version
+USOClient iOS v5.7.8 iOS
+iOS 15
+iOS 18
+USOClient Android v5.7.5
+Android
+Android 12
+Android 15
+Harmony HarmonyOS 4.2
+
+<2-hop>
+
+Container Orchestration
+Redis Cache Server
+Web Browser for Admin Console & Common Login Page (CLP)
+* Internet Explorer is no longer supported as Microsoft has ended mainstream support on June
+15, 2022.
+CLP Windows Integrated Authentication
+HSM For Key Management
+Web/Application
+Server Version Supported JRE/JDK Version
+Red Hat OpenJDK 21
+Provider Platform
+Microsoft Azure Kubernetes 1.31
+Amazon Web Services (AWS) Kubernetes 1.31
+Cache Server Version
+Redis 6.0
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+Web Server Version
+IIS IIS 10 with Windows Server 2022 (Version 21H2)
+Key Provider HSM Device
+PKCS11 Key Provider AWS Cloud HSM
+
+<3-hop>
+
+Externalized Authentication
+AccessMatrixUniversalSign-On (USO)
+Web Browser for Single Sign-On (SSO) Portal
+USO Trainer
+Federated SSO Profile/Binding
+OAuth 2.1 Authorization Code Flow with PKCE
+Authentication Provider
+Facebook
+Google
+LINE
+SingPass Mobile
+WeChat
+Web Browser Version
+Google Chrome Google Chrome 129
+Microsoft Edge Microsoft Edge (Chromium) 129
+USO Trainer Version
+5.6.2.0030-GA-E28
+Operating System Version
+Windows Workstation
+Windows 10 (version 22H2)
+Windows 11 (version 24H2)"
