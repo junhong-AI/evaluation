@@ -1,0 +1,507 @@
+query,ground_truth,contexts_joined
+Wht is USO Mobiile Adminstration?,USO Mobile Administration is a section in the guide that starts on page 44.,"Tableof Contents
+1. Preface - USO Administration Guide.............................................................4
+2. Introduction to USO Administration...............................................................6
+3. USO Admin Console..................................................................................... 9
+4. USO Mobile Administration......................................................................... 44
+5. USO Client User Guide............................................................................... 45
+5.1. Installing the USO Client....................................................................... 47
+5.2. USO Client User Interface.....................................................................54
+5.3. Using the USO Client............................................................................ 61
+6. USO Client Mobile App User Guide............................................................ 79
+6.1. Installing the USO Client Mobile App.....................................................80
+6.2. Using the USO Client Mobile App..........................................................81
+7. USO Application Training.......................................................................... 109
+7.1. Installing the USO Trainer....................................................................112
+7.2. USO TrainerUser Interface................................................................. 114
+7.3. Using the USO Trainer.........................................................................117
+7.4. Managing the USO Trainer..................................................................145
+7.5. Host Emulators....................................................................................184
+7.6. USO TrainerAdvanced Mode..............................................................200
+8."
+How USO work with Active Directory?,USO integrates with Active Directory through the Active Directory Password Filter.,"USO Integration.........................................................................................206
+8.1. Active Directory Password Filter..........................................................207
+8.2. SAML Integration for USO...................................................................212
+8.3. UAM Integration for USO.....................................................................216
+8.4. Integrated Windows Authentication for USO.......................................218
+9. AccessMatrix SSO Portal Implementation.................................................231
+9.1. Implementation Planning.....................................................................235
+9.2."
+How is NTLM authentication configured and tested using SPNEGO in an Active Directory environment?,"NTLM authentication is configured in an Active Directory environment by first navigating to the Administration Dashboard and selecting the pre-defined AD user store called 'ActiveDirectory' to edit and map the settings to the AD server. After ensuring the settings are correct with a test connection, the User Lookup Module is updated by selecting the predefined AD Lookup Module 'DefaultActiveDirectoryLookup' and specifying the User Store. The domain user is then assigned the authentication realm 'Windows Integrated Authentication (NTLM)(40171)'. To test SPNEGO, a JSP file named hello_spnego.jsp is used, which should be located in the directory <USOSERVER_ROOT>\tomcat\webapps\am5\html\auth\ntlm\. By launching a browser and entering the URL http://<hostname>:<port>/am5/html/auth/ntlm/hello_spnego.jsp, the username should be displayed on the page, confirming the configuration. Additionally, the setspn.exe tool is used to register Service Principal Names for the domain.","<1-hop>
+
+ClickSave. · EditUserStore
+1. NavigatetoAdministrationDashboard>Configuration>Authentication>UserStore. 2. Selectthepre-definedADuserstorecalled""ActiveDirectory""andclicktheEditbutton. 3. ModifythesettingstomaptotheADserver.PerformTestConnectiontoensurethesettingsare
+correct. · UpdatetheUserLookupModule
+1. NavigatetoAdministrationDashboard>Configuration>Authentication>UserLookup
+Module. 2. SelectthepredefinedADLookupModule""DefaultActiveDirectoryLookup"". 3. SpecifytheUserStoreintheUserStorefield.ClickSave. · Assign40171RealmtoDomainUser
+1. NavigatetoOperationDashboard>User&Segment>User. 2. Select""ActiveDirectory""fromtheUserStorefieldandclicktheSearchbutton. 3. Clickthedomainuser(i.e.""spnego"")undertheSearchUserResultpage. 4. Assigntherelevantloginaccountwithauthenticationrealm""WindowsIntegratedAuthentication
+(NTLM)(40171)""tothedomainuser. 5.
+
+<2-hop>
+
+TestSPNEGOUsingJSPFile(Optional)
+1. Ensurethathello_spnego.jspisfoundin
+<USOSERVER_ROOT>\tomcat\webapps\am5\html\auth\ntlm\directory. 2. LaunchabrowserandenterthefollowingURL:
+http://<hostname>:<port>/am5/html/auth/ntlm/hello_spnego.jsp. Youshouldbeabletoseeyourusernamedisplayedonthepage. C:\Documents and Settings\Administrator.QASERVER>setspn.exe -A HTTP/pstest1.qauat.com
+spnego
+Checking domain DC=qauat,DC=com
+Registering ServicePrincipalNames for CN=spnego,CN=Users,DC=qauat,DC=com
+HTTP/pstest1.qauat.com
+Updated object"
+"Howw doo youu configuree the SSO Portall andd Self-Servicee Portall to connectt too the AccessMatrixx Serverr, andd whatt aree thee securityy implicationns of thiss connectionn?","To configure the SSO Portal and Self-Service Portal to connect to the AccessMatrix Server, you need to navigate to <USOSERVER_HOME>/WEB-INF/ and open the web.xml file. This configuration establishes the connection between the SSO Portal and the AccessMatrix server. The security implications of this connection involve ensuring that the authentication protocols and authorization flows are correctly implemented to prevent unauthorized access and maintain compliance with security standards.","<1-hop>
+
+ConfigureSSO Portaland Self-Service Portalto Connectto the AccessMatrixServer
+SSOPortal
+TheconfigurationbelowestablishestheconnectionbetweenSSOPortalandAccessMatrixserver.To
+configure:
+1. Navigateto<USOSERVER_HOME>/WEB-INF/andopenweb.xml."
+Wher do I find the USOSERVER_ROOT path for SpnegoHttpFilter config?,"The USOSERVER_ROOT path for configuring the SpnegoHttpFilter can be found at \tomcat\webapps\am5\WEB-INF\lib\, as indicated in the context.","<1-hop>
+
+<USOSERVER_ROOT>\tomcat\webapps\am5\WEB-INF\lib\
+2. OpentheUSOweb.xmlfilefromfollowinglocationinatexteditor:
+<USOSERVER_ROOT>\tomcat\webapps\am5\WEB-INF\
+3. Findthe<filter>sectionanduncommentthefollowinglines:
+return handler;
+}
+}
+XML
+<!-- USO-SPNEGO KERBEROS: Remark the following -->
+<filter>
+<filter-name>SpnegoHttpFilter</filter-name>
+<filter-
+class>net.sourceforge.spnego.SpnegoHttpFilter</filter-
+class>
+<init-param>
+<param-
+name>spnego.allow.basic</param-name>
+<param-value>true</param-value>
+</init-param>
+<init-param>
+<param-
+name>spnego.allow.localhost</param-name>
+<param-value>true</param-value>
+</init-param>
+<init-param>
+<param-
+name>spnego.allow.unsecure.basic</param-name>"
+Wht r the USOserver configurashun attriboots in the AccessMatrixSSOPortal?,"The USOserver configuration consists of attributes that control the behavior of the AccessMatrixSSOPortal, such as the default authentication method for USOserver login and whether to show the upgrading page upon the availability of a new version of USOClient.","<1-hop>
+
+· USOApplicationGroup
+ThisisafeaturethatallowstheAdministratortogrouptheUSOapplicationstoallowsharingof
+applicationlogininformation.Thisisquitecommoninanorganizationwhenmultipleusersare
+grantedasharingloginaccounttoanapplication.Anotherusageistoallowsharingoflogin
+informationamongthedefinedapplications.Thisdoeshappeninorganizationswhereusers
+fromtheexternalstore(i.e.ActiveDirectory)areusedasstandardloginaccountforloginacross
+someapplicationsinanorganization. · USOClientandServerConfigurations
+USOspecificconfigurableattributes(knownasUSOregistry-basedproperties)aredynamically
+retrievedfromthesecurityregistryduringruntime.Theseattributescontrolthebehaviourofthe
+AccessMatrixSSOPortalandUSOClientcomponents.TheUSOregistry-basedpropertiescanbe
+configuredviatheAdministrationConsoleandgroupedinto2categories:
+o USOClientConfiguration
+ItconsistsofattributesthatcontrolthebehaviourofUSOClient,e.g.whethertolauncha
+particularapplicationduringUSOClientstartup,whethertominimizetheUSOClient
+uponstartup,etc. o USOServerConfiguration
+ItconsistsofattributesthatcontrolthebehaviourofUSOserverparticularlythe
+AccessMatrixSSOPortal,e.g.thedefaultauthenticationmethodforUSOserverlogin,
+whethertoshowtheupgradingpageupontheavailabilityofanewversionofUSOClient,
+etc."
+"How do you configure the EnterpriseModeSiteList to ensure sites open in IE11 browser, and what steps are involved in adding other USO web applications?","To configure the EnterpriseModeSiteList, which is an XML document specifying a list of sites, their compatibility mode, and their intended browser, you need to navigate to <ACMATRIX_HOME>/webapps/am5/lib and open the sitelist.xml. This list is used to determine which sites should open in the IE11 browser. The steps involved include configuring and adding other USO web applications by following the format shown in the sitelist.xml.","<1-hop>
+
+ConfiguretheEnterpriseModeSiteList
+TheEnterpriseModeSiteListisanXMLdocumentthatspecifiesalistofsites,theircompatmode,and
+theirintendedbrowser.ThislistisusedtodeterminewhichsitesshouldopeninIE11browser. Toconfigure:
+1. Navigateto<ACMATRIX_HOME>/webapps/am5/libandopenthesitelist.xmlasshownbelow:
+2. ConfigureandaddotherUSOwebapplicationsfollowingtheformatshownabove. 3."
+"How does the configuration of Group Policy Management for Microsoft Edge extensions ensure compliance with security protocols, particularly in relation to the silent installation of extensions?","The configuration of Group Policy Management for Microsoft Edge extensions ensures compliance with security protocols by allowing administrators to control which extensions are installed silently. This is achieved by navigating through the Group Policy Management Editor to the specific setting under Computer Configuration > Policies > Administrative Templates > Microsoft Edge > Extensions. By enabling the 'Control which extensions are installed silently' setting and specifying the extension ID and update URL, administrators can manage the installation of extensions without user intervention. This process helps maintain security by ensuring that only approved extensions are installed, thereby reducing the risk of unauthorized or malicious extensions being added to the browser.","<1-hop>
+
+IntheGroupPolicyManagementconsoletree,right-clickBrowserPoliciesandclick
+Edit. 2. IntheGroupPolicyManagementEditor,gotoComputerConfiguration>Policies>
+AdministrativeTemplates>MicrosoftEdge>Extensions. 3. Locateanddouble-clicktheControlwhichextensionsareinstalledsilentlysetting. 4. SelecttheEnabledradiobuttonandthenclicktheShow...button.TheShowContents
+dialogisdisplayed. 5. Addthefollowingentry:""<USOChromeExtensionID>;
+https://clients2.google.com/service/update2/crx""
+Note:TheUSOChromeExtensionIDvaluewilldependonwhichUSO
+ChromeExtensionManifestversionyouareusing:
+o USOChromeExtension(ManifestV3)-
+""bfffjeneelooklefkmdigdfpnpfnfeac""
+o USOChromeExtension-""cfaiemjbjcbagnibmlflmmfccfdmnbek"""
+What happens if a forced password change is required in the USO Client?,"If a forced password change is required in the USO Client, the system will perform the necessary action by navigating to the change password screen. This is determined by checking if a password change is required, and if so, the function NavigateToChangePwdScreen() is called to facilitate the process.","<1-hop>
+
+AttributeName Description
+DisableMenu
+[OPTIONAL]ThisparameterisusedtodisablethedesiredFilemenuoptionsin
+theUSOClient.Thisparameteriscase-insensitive. Thevalidvalues:
+· ""Login""-Disablesaccessto""login""toserveronmainmenu,toolbar,and
+trayicon. · ""Local""-Disablesaccesstologinto""local""PSEonmainmenu,toolbar,
+andtrayicon. · ""Logout""-Disablesaccessto""logout""onmainmenu,toolbar,andtray
+icon. · ""Exit""-Disablesaccessto""exit""onmainmenu,toolbar,andtrayicon. · ""ChangePassword""-Disablesaccessto""changepassword""onmain
+menu. · ""ChangePSEPassword""-Disablesaccessto""changepsepassword""on
+mainmenu. · ""About""-Disablesaccessto""about""onmainmenu. Multiplevaluesseparatedbyacommacanbespecified,e.g.:""Login,Change
+Password""
+AutorunWhen
+LogintoOS
+DetermineswhethertoautomaticallylaunchtheUSOClientafteruserlogsinto
+theoperatingsystem. Defaultvalue:No
+ReloadApplication
+ListAfterPassword
+Change
+ThisparameterdetermineswhetherUSOClientshouldreloadapplicationlist
+fromserverafterprimarypasswordischangedsuccessfully. Defaultvalue:No
+DialogTimeout
+Thisparameteristospecifythemaximumtime(insecond)theUser
+VerificationwindowwillappearbeforeUSOClientconsidereditasacancel
+action. · ThissettingisonlyapplicablefortheDomain-Verificationfunction
+duringre-authentication. Whensetto""0"",itmeansnotimeout. Defaultvalue:600
+LogLevel
+(obsolete)
+TheloglevelthatdetermineshowdetailedUSOClientwilllogtheUSOClient
+activitiestothelogfile. Thevalidvalues,explainsinincreasingcomprehensivenessofthelogfileare:
+· ""0""–Nologfilewillbewritten.
+
+<2-hop>
+
+ThelastportionistocheckifForcedChangePasswordisrequired,andifrequired,itwillperformthe
+necessaryaction. CustomMenu
+MenuLabel:LoginAgain
+Action:$LoginAgain()
+Incaseof$HandleLogout(),iftheuserwantstologinagainaftersometime,theusercanright-clickon
+theusoWinAttachiconandclickLoginAgain. Code
+_ClearTimer()
+_ClearHook()
+control = ''
+// AuditWrite('', 'usoAppLogin', 'S', 'USO Client
+detected application login was successful', '', '',
+'reason')
+state = 'AfterLogin'
+if ( _IsPwdChangeRequired() )
+{
+if ( typeof(NavigateToChangePwdScreen) ==
+'function')
+{
+NavigateToChangePwdScreen()
+}
+}"
+How does the USOClient manage login authentication and what are the implications of disabling the login option in the File menu?,"The USOClient manages login authentication by determining the default authentication method used for authenticating USO users during USO server login, with the default being 'DefaultPasswordBasic' as specified in the configuration attributes. Disabling the login option in the File menu, as described in the context, prevents access to the 'login' to server on the main menu, toolbar, and tray icon, which could impact the ability of users to authenticate and access the USO server if this option is disabled.","<1-hop>
+
+AttributeName Description
+DisableMenu
+[OPTIONAL]ThisparameterisusedtodisablethedesiredFilemenuoptionsin
+theUSOClient.Thisparameteriscase-insensitive. Thevalidvalues:
+· ""Login""-Disablesaccessto""login""toserveronmainmenu,toolbar,and
+trayicon. · ""Local""-Disablesaccesstologinto""local""PSEonmainmenu,toolbar,
+andtrayicon. · ""Logout""-Disablesaccessto""logout""onmainmenu,toolbar,andtray
+icon. · ""Exit""-Disablesaccessto""exit""onmainmenu,toolbar,andtrayicon. · ""ChangePassword""-Disablesaccessto""changepassword""onmain
+menu. · ""ChangePSEPassword""-Disablesaccessto""changepsepassword""on
+mainmenu. · ""About""-Disablesaccessto""about""onmainmenu. Multiplevaluesseparatedbyacommacanbespecified,e.g.:""Login,Change
+Password""
+AutorunWhen
+LogintoOS
+DetermineswhethertoautomaticallylaunchtheUSOClientafteruserlogsinto
+theoperatingsystem. Defaultvalue:No
+ReloadApplication
+ListAfterPassword
+Change
+ThisparameterdetermineswhetherUSOClientshouldreloadapplicationlist
+fromserverafterprimarypasswordischangedsuccessfully. Defaultvalue:No
+DialogTimeout
+Thisparameteristospecifythemaximumtime(insecond)theUser
+VerificationwindowwillappearbeforeUSOClientconsidereditasacancel
+action. · ThissettingisonlyapplicablefortheDomain-Verificationfunction
+duringre-authentication. Whensetto""0"",itmeansnotimeout. Defaultvalue:600
+LogLevel
+(obsolete)
+TheloglevelthatdetermineshowdetailedUSOClientwilllogtheUSOClient
+activitiestothelogfile. Thevalidvalues,explainsinincreasingcomprehensivenessofthelogfileare:
+· ""0""–Nologfilewillbewritten.
+
+<2-hop>
+
+Note:'*'denotesamandatoryattribute. AttributeName Description
+*ConfigurationId IdentificationassignedtotheUSOserverconfiguration. *ConfigurationName ThenameoftheUSOserverconfiguration. Description BriefdescriptionfortheUSOserverconfiguration. Version TheUSOserverconfigurationrevision.(uneditable)
+Implementation Implementationtype.(uneditable)
+AttributesTab
+Authentication
+DefaultauthenticationforUSOusers
+Determinethedefaultauthenticationmethodusedfor
+authenticatingUSOusersduringUSOserverlogin. Default:40151(DefaultPasswordBasic)
+
+<3-hop>
+
+OperatingSystem
+· USOClientmustbeinstalledonWindowsOSmachine,withWindows10astheminimum
+version. Applications
+TherearecertaintypesofapplicationsthatUSOClientsupports.Forthelistofsupportedandcertified
+applications,refertoUSOApplicationTraining-TypesofSupportedApplicationsandListofCertified
+Applicationssections. Forthelistofunsupportedapplications,refertoUSOApplicationTrainingGuide-KnownUnsupported
+Applications. USOClientInstallation& Startup
+ThissectioncontainsdetailedexplanationondifferenttypesofUSOClientinstallationandstartingup. InstallUSOClient
+Note: TheUSOClientcanbefalselyflaggedasmalwarebyantivirus
+software.Formoreinformation,refertoFalsePositiveDetectionby
+AntivirusScan. Fresh
+Installationof
+USOClient
+ForafreshinstallationofUSOClient,i.e.thereisnopreviousorexistingversionofUSO
+Clientinstalled,thedetailedinstallationstepsaredescribedbelow:
+1. InordertologintotheUSOServerforthefirsttime,obtainthefollowing
+informationfromtheadministrator:
+o TheURLoftheUSOWebUI,e.g.http://localhost:8080/usoserver/start.uso
+o TheUSOUserIDandpassword. 2. OpenaWebbrowserandentertheabove-mentionedURLtoaccesstheUSO
+WebUIpage.TheCommonLoginPageisdisplayed. 3."
+What USO TrainerAdvanced Mode do?,The USO TrainerAdvanced Mode is discussed in the context starting on page 200.,"Tableof Contents
+1. Preface - USO Administration Guide.............................................................4
+2. Introduction to USO Administration...............................................................6
+3. USO Admin Console..................................................................................... 9
+4. USO Mobile Administration......................................................................... 44
+5. USO Client User Guide............................................................................... 45
+5.1. Installing the USO Client....................................................................... 47
+5.2. USO Client User Interface.....................................................................54
+5.3. Using the USO Client............................................................................ 61
+6. USO Client Mobile App User Guide............................................................ 79
+6.1. Installing the USO Client Mobile App.....................................................80
+6.2. Using the USO Client Mobile App..........................................................81
+7. USO Application Training.......................................................................... 109
+7.1. Installing the USO Trainer....................................................................112
+7.2. USO TrainerUser Interface................................................................. 114
+7.3. Using the USO Trainer.........................................................................117
+7.4. Managing the USO Trainer..................................................................145
+7.5. Host Emulators....................................................................................184
+7.6. USO TrainerAdvanced Mode..............................................................200
+8."
+How Active Directory work with USO?,"Active Directory is integrated with USO through various methods such as the Active Directory Password Filter, SAML Integration, UAM Integration, and Integrated Windows Authentication.","USO Integration.........................................................................................206
+8.1. Active Directory Password Filter..........................................................207
+8.2. SAML Integration for USO...................................................................212
+8.3. UAM Integration for USO.....................................................................216
+8.4. Integrated Windows Authentication for USO.......................................218
+9. AccessMatrix SSO Portal Implementation.................................................231
+9.1. Implementation Planning.....................................................................235
+9.2."
+Howw doo youu configuree the CLP URL inn Access Matrix Applicationss forr userr authenticationn?,"To configure the CLP URL in Access Matrix Applications for user authentication, you need to refer to the Access Matrix Common Login Page Deployment Guide. The Self-Service Portal and SSOPortal use the Common Login Page (CLP) to handle user authentication, making it necessary to configure the CLP URL as per the guide.","<1-hop>
+
+Modifytheloglevel,ifnecessary. 3. Savethechanges. 4. RestarttheUSOserverforchangestotakeeffect. Self-ServicePortal
+Toconfigure:
+1. Navigateto<USOSSF_HOME>/WEB-INF/classes/andopenusossflog4j2.properties. 2. Modifytheloglevel,ifnecessary. 3. Savethechanges. 4. RestarttheUSOSSFserverforchangestotakeeffect. ConfigureCLP URL
+SSOPortalandSelf-ServicePortaluseCommonLoginPage(CLP)tohandleuserauthentication.Hence,it
+isrequiredtoconfiguretheCLPURL.RefertoAccessMatrixCommonLoginPageDeploymentGuide-
+ConfiguretheCLPURLinAccessMatrixApplicationsfortheconfigurationsteps."
+How ActiveDirectory used in authentication protocols like FIDO2 and what security implications it got?,"ActiveDirectory is used in authentication protocols such as LdapLogin for ActiveDirectory, which is one of the supported login module implementations for reauthentication before an application's password can be retrieved. This is part of the broader authentication framework that includes FIDO2, which provides cryptographic proof about its model to the FIDO2 Relying Party. The security implications of using ActiveDirectory in this context involve ensuring that the authentication process is secure and that the cryptographic proofs provided by FIDO2 are valid and trustworthy.","<1-hop>
+
+Default:2
+Maxlengthofresponse [DEPRECATED]Maximumlengthofresponse. Default:30
+Casesensitive
+[DEPRECATED]Ifsetto""true"",USOwillcheckcasesensitivityofthe
+responsetochallengequestion. Default:false
+Maxfailureperchallenge
+question
+[DEPRECATED]Maximumfailurecountperchallengequestion. Default:3
+Maxfailureallchallenge
+questions
+[DEPRECATED]Maximumfailurecountforallchallengequestions. Default:5
+RealmIdForQ&AKBALogin [DEPRECATED]TherealmIdforQ&AKBALogin. *ReauthenticationLogin
+ModuleforUSOApplication
+PasswordRetrieval
+Specifiestheloginmoduleusedforreauthenticationbeforean
+application'spasswordcanberetrieved.Thefollowingloginmodule
+implementationsaresupported: SystemPasswordBasic,i-SprintSMS
+OTPLogin,LdapLoginforActiveDirectory,OpenLDAPandFIDO2
+TokenLogin. Default:SSFOTPLogin
+Enable""FIDO2Registration""
+function
+Toenablethe""FIDO2Registration""function. Default:true
+*FIDO2RegistrationLogin
+ModuleId
+SpecifiestheloginmoduleusedwhenusingFIDO2authenticationto
+logintotheAccessMatrixSSOPortal. FIDO2Attestation
+ToenabletheuseofFIDO2attestation.Attestationistheprocess
+whereaFIDO2authenticatorprovidescryptographicproofaboutits
+modeltotheFIDO2RelyingParty(theserverrequestingaccessto
+onlineresources). Default: none"
+How do you acces the Access Matrix SSO Portal using Microsoft Edge?,"To access the Access Matrix SSO Portal using Microsoft Edge (Chromium) browser, you need to launch the browser and enter the SSO Portal URL, for example, http://localhost:8080/usoserver/start.uso.","<1-hop>
+
+ClicktheFinishbuttonandproceedtoexportthetrainedapplicationtogeneratetheADF
+accordingly. 8. ImporttheADFintotheAdminConsoletocreatetheUSOapplication. 9. NavigatetoOperationDashboard>User&Segment>UserandassigntheUSOentitlementof
+thisUSOApplicationtothetestuserandsave.RefertotheConfigureUserUSOEntitlement
+sectionforthesteps. VerifytheWebApplicationinMicrosoftEdge(Chromium)Browser
+PerformthefollowingstepstoverifyifthewebapplicationisalreadysupportedinMicrosoft Edge
+(Chromium)browser:
+· LaunchMicrosoft Edge(Chromium)browserandaccesstheAccessMatrixSSOPortalbyentering
+theSSOPortalURL,e.g.http://localhost:8080/usoserver/start.uso. Note:Thisstepisoptional.ThemodificationoftheApplicationPathand
+WorkingdirectoryattributescanalsobedoneaftertheADFisimported
+intotheAdminConsole."
+How does the Common Login Page (CLP) facilitate user authentication in the SSO Portal and USO Client environments?,"The Common Login Page (CLP) facilitates user authentication by handling user login processes for both the SSO Portal and USO Client environments. In the SSO Portal, the CLP must be configured correctly to manage user authentication before accessing the portal. In the USO Client environment, upon launching the USO URL, the page redirects to the CLP to handle user login, unless it is the first time logging into the USO server. The CLP ensures that users are authenticated correctly, either by using a default authentication realm or by prompting the user to select an authentication realm from the list configured in the CLP.","<1-hop>
+
+EnterthelogincredentialsaccordinglyandclicktheLoginbutton.TheSSOPortalwillbe
+displayed. 3. Clickonthecorrespondingapplicationname.TheSSOPortalwilllaunchtheapplicationusing
+thedefaultprofile. SessionExpiry
+IftheUSOClientisnotinuse,andtheSSOPortalisleftidleafterlogin,theuserwillbeautomatically
+loggedoutoncethesessionexpires. SSO PortalUser Interface 
+Thefollowingtableprovidesadescriptionofthemenuitemsavailableintheuserinterface:
+Note: BeforeaccessingtheSSOPortal,ensurethatCommonLoginPage
+(CLP)hasbeenconfiguredcorrectly,asitisusedtohandleuser
+authentication.Formoredetails,referto AccessMatrixCommonLoginPage
+DeploymentGuide-SetUpCLPforAccessMatrixApplications. Note: Iftherearemultipleprofileswhereadefaultprofilehasnotbeen
+set,theuserwillbedirectedtoselectaprofilebeforetheapplicationis
+launched.
+
+<2-hop>
+
+3. EnterthevalidUSOUserIDandpassword,andclickontheLoginbuttonfromCLP'sUSOLogin
+page. 4. Uponsuccessfullogin,systemwilldisplaythelistofUSOapplicationsthattheuserisauthorized
+toaccess. DependingontheUSOClientConfigurationsettings,usermaybepromptedtosetPSEpassword
+and/orpassword-protectedscreensaver. LogintoUSOServerviaUSOClient
+TologintotheUSOServeronlineviatheUSOClient,proceedwiththefollowingsteps:
+1. StarttheUSOClientifithasnotalreadystarted. 2. ClicktheLoginiconfromthetoolbar.Alternatively,clickFile>LogintoServer.IfUSOClientis
+minimized,right-clicktheUSOClienticonontheWindowstaskbar,andselectLogin. 3. UponlaunchingoftheUSOURL,thepagewillberedirectedtotheCommonLoginPage(CLP)to
+handleuserlogin,unlessit'sthefirsttimelogintotheUSOserver. o IftheDefaultauthenticationforUSOusersattributeissetwitharealm,e.g.""40151"",
+thentheuserwillnotbepromptedtoselectanauthenticationrealm.Instead,theUSO
+Loginpagewillbeautomaticallydisplayedandusetheassignedrealmforlogin. o IftheDefaultauthenticationforUSOusersattributeisempty,thenuserwillbe
+promptedtoselecttheauthenticationrealmfromthelistofrealmsconfiguredinCLP. 4."
+How does the AccessMatrix Server facilitate SAML integration for user authentication in a deployment with multiple instances?,"The AccessMatrix Server facilitates SAML integration for user authentication by acting as the Identity Provider. It authenticates user credentials and provides the user identity to the Service Provider. In a deployment with multiple instances, the AccessMatrix application servers are deployed with a Common Login Page (CLP), SSO Portal, and Self-Service Portal running together. A load balancer is needed in front of the CLP and USO instances to distribute the workload among the instances, ensuring that USO will only communicate with the AccessMatrix Server in the same instance. This setup allows secure web domains to exchange user authentication and authorization data using SAML.","<1-hop>
+
+Asshowninthediagramabove,formultipleAccessMatrixinstancesthatconsistoftheAccessMatrix
+applicationserversaredeployedwithCommonLoginPage(CLP),SSOPortalandSelf-ServicePortal
+runningtogether.AloadbalancerisneededinfrontoftheCLPandUSOinstancestodistributethe
+workloadamongtheinstances.USOwillonlycommunicatetotheAccessMatrixServerinthesame
+instanceinthistypeofdeployment. DeployStandaloneSSOPortalandSelf-ServicePortal
+TheSSOPortalandSelf-ServicePortalcanbedeployedasWebARchive(WAR)packagesontoJAVA-based
+weborapplicationserver(suchasApacheTomcatServer)anddeployedasaseparateinstancefromthe
+AccessMatrixserver.AloadbalancerisneededinfrontoftheUSOandCLPinstancesifmorethanoneis
+deployedforuse.AnotherloadbalancerisneededbetweentheCLPinstances,USOinstancesand
+AccessMatrixServersifmorethanoneAccessMatrixServersareused.Thisdeploymentusecaseis
+shownbelow:
+Note:TheAccessMatrixinstallationpackagecomeswithanSSOPortal
+WARfile(e.g.AccessMatrix-x.x.x.xxxx-GA-usoserver.war)andaSelf-
+ServicePortalWARfile(e.g.AccessMatrix-x.x.x.xxxx-GA-usossf.war).
+
+<2-hop>
+
+8.2. SAML Integration for USO
+SecurityAssertionMarkupLanguage(SAML)isanXMLstandardthatallowssecurewebdomainsto
+exchangeuserauthenticationandauthorizationdata.UsingSAML,anonlineserviceprovidercan
+contactaseparateonlineidentityprovidertoauthenticateuserswhoaretryingtoaccesssecure
+content. AccessMatrixactsastheIdentityProvider.Itauthenticatestheusercredentialandprovidestheuser
+identitytotheServiceProvider. TointegrateSAMLwithUSO,performthestepsdescribedinthefollowingsections. ConfiguringAccessMatrixServer
+1. Open<AxMxRoot>\tomcat\webapps\am5\WEB-INF\web.xml. 2."
+How do you replace an image in the USOSERVER_HOME directory and configure the SSO Portal to connect to the AccessMatrix Server?,"To replace an image, save the new image in the <USOSERVER_HOME>/assets/images/ directory. Then, in app.js, change the value of img src to the path of the new image, such as 'assets/images/new_banner.jpg', and update the values of width and height to match the dimensions of the new image. To configure the SSO Portal to connect to the AccessMatrix Server, navigate to <USOSERVER_HOME>/WEB-INF/ and open web.xml.","<1-hop>
+
+o Toreplacetheimage:
+a. Savethenewimagein<USOServer_HOME>/assets/images/. b. Inapp.js,changethevalueofimgsrctothepathofthenewimage(e.g. ""assets/images/new_banner.jpg""). c. Updatethevaluesofwidthandheighttothedimensionsofthenewimage. 3.
+
+<2-hop>
+
+ConfigureSSO Portaland Self-Service Portalto Connectto the AccessMatrixServer
+SSOPortal
+TheconfigurationbelowestablishestheconnectionbetweenSSOPortalandAccessMatrixserver.To
+configure:
+1. Navigateto<USOSERVER_HOME>/WEB-INF/andopenweb.xml."
+"How does the USOClient handle session validity and profile activation, and what server configuration changes are necessary for these features to function correctly?","The USOClient manages session validity by refreshing the login session based on computer activity and checking session validity before replaying login information. The MinSessionCheckInterval should be set shorter than the idle timeout to ensure proper session management. For profile activation, users can right-click on the desired profile and select the Set Active option, which, if successful, displays a 'USOserver/PSE updated successfully.' message on the USOClient's status bar. To ensure these features function correctly, any changes made, such as customizing the banner image, require saving the changes and restarting the USO server for them to take effect.","<1-hop>
+
+USOClientrefreshestheloginsessionwheneverthereisacomputeractivity
+(i.e.keyboardormouseevents)onUSOClientandonanyofUSOapplications. · Ifsettovalueof""0"",USOClientwillperformuser'ssessionvalidity
+checkingeverytimebeforereplayingapplication'slogininformation
+submission. · Ifsettovalueofxminutes,USOClientwillperformuser'ssession
+validitycheckingbeforereplayingapplication'slogininformation
+submissionANDifthelastcheckingdoneislongerthanxminutes. Defaultvalue:5
+Note:TheMinSessionCheckIntervalshouldbesetshorterthanidletimeout. IdleTimeout
+PromptTime
+Tospecifytheintervalinseconds,ofhowsoonbeforethesessionidletimeout
+thatUSOClientwillshowthesessionextensiondialogbox. · Ifsetto""60"",meansUSOClientwillpromptthesessionextensiondialog
+box60secondsbeforethesessionidletimeout. · Ifsetto""0"",USOClientwillnotshowthesessionextensiondialogbox
+anditwillturnofftheautorefreshofserverloginsession. · Ifsettoavalue>=idletimeout,thebehaviorwillbethesameassetting
+itto""0"". Defaultvalue:0
+KillBrowser
+DetermineswhethertoclosetherelevantbrowseruponloggingoutfromUSO
+Client.TherelevantbrowseristhebrowserthatretrievesSessionIDfromUSO
+Client. Defaultvalue:No
+LogoutWhen
+BrowserClosed
+SpecifieswhetherUSOClientwilllogoutautomaticallywhenthebrowser
+instance(thatinitiatedthelogin)isclosed. Defaultvalue:No
+PollingTime
+SpecifiestheintervalinmillisecondsofwhichUSOClientperformspollingon
+thecurrentforegroundwindow. Thisoptionisusefultoserveasabackupforapplicationsthatdonotreliably
+sendtheupdateevents.(Forexample:JavaApplication,OracleApplication,etc.)
+· Ifthevalueissetto""0"",thepollingmechanismwillbeturnedoff. Defaultvalue:1000(1second)
+Note:Donotspecifyvaluethatistoolow,asthemachineCPUmaynotbeable
+tohandleit.
+
+<2-hop>
+
+Right-clickonthedesiredprofileandselecttheSetActiveoptiontoactivatetheselectedprofile. Iftheactivationissuccessful,""USOserver/PSEupdatedsuccessfully.""messagewillbedisplayed
+onUSOClient'sstatusbarandtheprofilewillbehighlighted. RenamingApplicationLoginProfile
+Torenamealoginprofile,performthefollowingsteps:
+1. Clickontheprefixing[+]signofthedesiredapplicationtoviewthelistofloginprofiles. 2. Selecttheloginprofiletoberenamed,right-clickandselectRenameProfile.Alternatively,select
+tohighlightthedesiredprofileandclickonceonthehighlightedprofile. 3. TypethedesirednamefortheselectedprofileandpressEntertoapplythechange.Iftheupdate
+issuccessful,""USOserver/PSEupdatedsuccessfully.""messagewillbedisplayedontheUSO
+Clientstatusbar. DeletingApplicationLoginProfile
+Todeletealoginprofile,performthefollowingsteps:
+1. Clickontheprefixing[+]signofthedesiredapplicationtoviewthelistofloginprofiles. 2. Selecttheloginprofiletobedeleted,right-clickandselectDeleteProfile.Ifitisdeleted
+successfully,""USOserver/PSEupdatedsuccessfully.""messagewillbedisplayedontheUSO
+Clientstatusbar. Note:
+· Theinactiveprofile(s)willbedimmed(grayedout). · USOClientwillrememberthelastselectedprofileiftheDon't
+RememberProfileoptionisuncheckedinSetDefaultProfile
+dialog.RefertoUSOApplicationLoginUsingMultipleProfiles
+Featureforrelatedinformation. Note:ForapplicationsunderUSOApplicationgroup,renamingaprofile
+underoneapplicationwillautomaticallyrenametheequivalentprofile
+underanotherapplicationwithinthesameapplicationgroup. Note:ForapplicationsunderUSOApplicationgroup,deletingaprofile
+underoneapplicationwillautomaticallydeletetheequivalentprofile
+underanotherapplicationwithinthesameapplicationgroup.
+
+<3-hop>
+
+Savethechanges. 4. RestarttheUSOserverforthechangestotakeeffect. CustomizeBannerImage
+1. Navigateto<USOSERVER_HOME>/scripts/andopenapp.js. 2. Locatethefollowingline:
+o Todeletethebannerimageentirely,commentout/deletethisline. JavaScript
+<td colspan=""2""><img src=""assets/images/uso_logo.png""
+width=""659px"" height=""62px"" alt={{ \'Brw.Title\' |
+translate }}/></td>
+JavaScript
+<td><img src=""assets/images/uso_banner.jpg""
+width=""740px"" height=""118px"" alt=""""/></td>"
+How do you activate a profile in USO applications and what role do user-defined actions play in this process?,"To activate a profile in USO applications, you need to right-click on the desired profile and select the Set Active option. If the activation is successful, a message saying 'USO server/PSE updated successfully.' will be displayed on the USO Client's status bar, and the profile will be highlighted. User-defined actions allow administrators to define custom actions to cater to different screen matching behaviors, which can be crucial in managing and automating tasks related to profile activation and other processes within USO applications.","<1-hop>
+
+4. Uponsuccessfullogin,systemwilldisplaythelistofUSOapplicationsthattheuserisauthorized
+toaccessandnoticethattheloginstatusisonlyshowingLocal. UserisnowreadytoperformUSOi.e.SecondarySign-OntotheapplicationsasdescribedinPerforming
+USOSecondarySign-On. PerformingUSOSecondary Sign-On
+ThischapterdescribesthestepstoperformSecondarySign-OntoUSOapplications. PerformingSecondaryLogintoUSOApplication
+ThissectiondescribesthescenarioofperformingsecondarylogintoanUSOapplication. Tologintothedesiredapplication,performthefollowingsteps:
+1. Launchthedesiredapplicationbydouble-clickingonitfromtheapplicationlistorbylaunching
+theapplicationdirectly,forexample,runningtheapplicationexecutableforadesktop
+applicationordirectlyaccessingtotheloginpageforaWebapplication,etc. Note:SincethePSEdoesnotcontainanyapplicationlogininformation,
+userwillnotbeabletoperformlocalPSElogin,i.e.offlinemode.
+
+<2-hop>
+
+Right-clickonthedesiredprofileandselecttheSetActiveoptiontoactivatetheselectedprofile. Iftheactivationissuccessful,""USOserver/PSEupdatedsuccessfully.""messagewillbedisplayed
+onUSOClient'sstatusbarandtheprofilewillbehighlighted. RenamingApplicationLoginProfile
+Torenamealoginprofile,performthefollowingsteps:
+1. Clickontheprefixing[+]signofthedesiredapplicationtoviewthelistofloginprofiles. 2. Selecttheloginprofiletoberenamed,right-clickandselectRenameProfile.Alternatively,select
+tohighlightthedesiredprofileandclickonceonthehighlightedprofile. 3. TypethedesirednamefortheselectedprofileandpressEntertoapplythechange.Iftheupdate
+issuccessful,""USOserver/PSEupdatedsuccessfully.""messagewillbedisplayedontheUSO
+Clientstatusbar. DeletingApplicationLoginProfile
+Todeletealoginprofile,performthefollowingsteps:
+1. Clickontheprefixing[+]signofthedesiredapplicationtoviewthelistofloginprofiles. 2. Selecttheloginprofiletobedeleted,right-clickandselectDeleteProfile.Ifitisdeleted
+successfully,""USOserver/PSEupdatedsuccessfully.""messagewillbedisplayedontheUSO
+Clientstatusbar. Note:
+· Theinactiveprofile(s)willbedimmed(grayedout). · USOClientwillrememberthelastselectedprofileiftheDon't
+RememberProfileoptionisuncheckedinSetDefaultProfile
+dialog.RefertoUSOApplicationLoginUsingMultipleProfiles
+Featureforrelatedinformation. Note:ForapplicationsunderUSOApplicationgroup,renamingaprofile
+underoneapplicationwillautomaticallyrenametheequivalentprofile
+underanotherapplicationwithinthesameapplicationgroup. Note:ForapplicationsunderUSOApplicationgroup,deletingaprofile
+underoneapplicationwillautomaticallydeletetheequivalentprofile
+underanotherapplicationwithinthesameapplicationgroup.
+
+<3-hop>
+
+· User-DefinedActions
+Administratorisallowedtodefinecustomactionsknownasuser-definedactionstocaterfor
+differentscreenmatchingbehaviorsasdiscussedinfollowingsteps:
+1. StartUSOTrainerifithasnotbeenstarted. 2. OntheMainScreen,clickontheToolsmenuandselecttheUser-DefinedActionssub-
+menuoption. 3. Toadd,edit,anddeleteanewuser-definedactions,refertothisvideo:
+Link:https://www.youtube.com/watch?v=3BM_buNCGxI
+C.KeystrokeCodeforSendKeys
+ActionName Parameters Definition
+$ProcessChangePwd timeout,timeoutAction,
+disappearAction
+Processchangepassword
+screen. $HandleChangePwdFail reason Handlechangepassword
+failure."
